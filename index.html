@@ -335,6 +335,13 @@
             align-items: center;
             gap: 8px;
         }
+
+        .loading-text {
+            text-align: center;
+            color: var(--text-sub);
+            padding: 15px;
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
@@ -386,7 +393,9 @@
 
         <!-- 1. تبويب المواد والأزرار الفرعية -->
         <div id="subjectsTab" class="tab-content active">
-            <div id="subjectsContainer" class="grid"></div>
+            <div id="subjectsContainer" class="grid">
+                <div class="loading-text"><i class="fa-solid fa-spinner fa-spin"></i> جاري تحميل الملفات والمحاضرات من المكتبة...</div>
+            </div>
         </div>
 
         <!-- 2. تبويب جدول المحاضرات -->
@@ -409,9 +418,9 @@
     </div>
 
     <script>
-        /* ==========================================================================
-           قواعد البيانات والموارد الخاصة بك لكل مادة بأزرارها الفرعية
-           ========================================================================== */
+        // رابط API المباشر والجاهز الخاص بك
+        const API_URL = "https://script.google.com/macros/s/AKfycbxPj5yOG9FI07Acypl2SiZBNK81F0YzyVsJ1a4o2WZImAuREaGMz9uRjR6W7afSC038/exec";
+
         const appData = {
             subjects: [
                 {
@@ -420,16 +429,9 @@
                     doc: 'د. الزبير جعفر',
                     isGeneral: true,
                     buttons: [
-                        { title: 'روابط محاضرات الفيزياء', type: 'links', icon: 'fa-video', items: [
-                            { name: 'محاضرة 5 (Scalelite)', url: 'https://scalelite.ust.edu.sd/playback/presentation/2.3/1212aa2bee0f972409f8b9bf708eb623f41fab18-1787126960105' },
-                            { name: 'محاضرة 6 (Scalelite)', url: 'https://scalelite.ust.edu.sd/playback/presentation/2.3/3f410b460fe2a324928a1fceafeed34418e036f9-1788942552009' }
-                        ]},
-                        { title: 'روابط التمارين والتتوريال', type: 'tutorials', icon: 'fa-pen-ruler', items: [
-                            { name: 'رابط تمارين التتوريال 1', url: '#' }
-                        ]},
-                        { title: 'ملفات الفيزياء', type: 'files', icon: 'fa-file-pdf', items: [
-                            { name: 'شيت الفيزياء - الجزء الأول.pdf', url: '#' }
-                        ]}
+                        { title: 'روابط محاضرات الفيزياء', type: 'links', icon: 'fa-video', items: [] },
+                        { title: 'روابط التمارين والتتوريال', type: 'tutorials', icon: 'fa-pen-ruler', items: [] },
+                        { title: 'ملفات الفيزياء', type: 'files', icon: 'fa-file-pdf', items: [] }
                     ]
                 },
                 {
@@ -439,12 +441,8 @@
                     isGeneral: false,
                     deptId: 'biomedical',
                     buttons: [
-                        { title: 'روابط محاضرات الكيمياء الحيوية', type: 'links', icon: 'fa-video', items: [
-                            { name: 'تسجيل محاضرة الكيمياء الحيوية 1', url: '#' }
-                        ]},
-                        { title: 'ملفات الكيمياء الحيوية', type: 'files', icon: 'fa-file-pdf', items: [
-                            { name: 'شيت الكيمياء الحيوية.pdf', url: '#' }
-                        ]}
+                        { title: 'روابط محاضرات الكيمياء الحيوية', type: 'links', icon: 'fa-video', items: [] },
+                        { title: 'ملفات الكيمياء الحيوية', type: 'files', icon: 'fa-file-pdf', items: [] }
                     ]
                 },
                 {
@@ -453,15 +451,9 @@
                     doc: 'دكتورة وسام',
                     isGeneral: true,
                     buttons: [
-                        { title: 'روابط المحاضرات', type: 'links', icon: 'fa-video', items: [
-                            { name: 'تسجيل المحاضرة النظرية', url: '#' }
-                        ]},
-                        { title: 'روابط محاضرات المعمل (اللاب)', type: 'lab', icon: 'fa-laptop-code', items: [
-                            { name: 'تسجيل لاب البرمجة', url: '#' }
-                        ]},
-                        { title: 'ملفات البرمجة', type: 'files', icon: 'fa-file-code', items: [
-                            { name: 'أكواد وملاحظات لغة C.pdf', url: '#' }
-                        ]}
+                        { title: 'روابط المحاضرات', type: 'links', icon: 'fa-video', items: [] },
+                        { title: 'روابط محاضرات المعمل (اللاب)', type: 'lab', icon: 'fa-laptop-code', items: [] },
+                        { title: 'ملفات البرمجة', type: 'files', icon: 'fa-file-code', items: [] }
                     ]
                 },
                 {
@@ -470,12 +462,8 @@
                     doc: 'د. مصطفى',
                     isGeneral: true,
                     buttons: [
-                        { title: 'محاضرات الرسم الهندسي', type: 'links', icon: 'fa-video', items: [
-                            { name: 'شرح إسقاط الأشكال', url: '#' }
-                        ]},
-                        { title: 'ملفات الرسم الهندسي', type: 'files', icon: 'fa-file-pdf', items: [
-                            { name: 'شيت تمارين الرسم الهندسي.pdf', url: '#' }
-                        ]}
+                        { title: 'محاضرات الرسم الهندسي', type: 'links', icon: 'fa-video', items: [] },
+                        { title: 'ملفات الرسم الهندسي', type: 'files', icon: 'fa-file-pdf', items: [] }
                     ]
                 },
                 {
@@ -484,12 +472,8 @@
                     doc: 'د. هشام',
                     isGeneral: true,
                     buttons: [
-                        { title: 'روابط محاضرات الحسبان 2', type: 'links', icon: 'fa-video', items: [
-                            { name: 'تسجيل محاضرة الحسبان', url: '#' }
-                        ]},
-                        { title: 'ملفات الحسبان 2', type: 'files', icon: 'fa-file-pdf', items: [
-                            { name: 'شيت الحسبان 2 كامل.pdf', url: '#' }
-                        ]}
+                        { title: 'روابط محاضرات الحسبان 2', type: 'links', icon: 'fa-video', items: [] },
+                        { title: 'ملفات الحسبان 2', type: 'files', icon: 'fa-file-pdf', items: [] }
                     ]
                 },
                 {
@@ -498,12 +482,18 @@
                     doc: 'دكتورة زينب',
                     isGeneral: true,
                     buttons: [
-                        { title: 'روابط محاضرات الهندسة التحليلية', type: 'links', icon: 'fa-video', items: [
-                            { name: 'تسجيل محاضرة الهندسة التحليلية', url: '#' }
-                        ]},
-                        { title: 'ملفات الهندسة التحليلية', type: 'files', icon: 'fa-file-pdf', items: [
-                            { name: 'شيت الهندسة التحليلية.pdf', url: '#' }
-                        ]}
+                        { title: 'روابط محاضرات الهندسة التحليلية', type: 'links', icon: 'fa-video', items: [] },
+                        { title: 'ملفات الهندسة التحليلية', type: 'files', icon: 'fa-file-pdf', items: [] }
+                    ]
+                },
+                {
+                    id: 'english',
+                    name: 'اللغة الإنجليزية',
+                    doc: 'أستاذ المادة',
+                    isGeneral: true,
+                    buttons: [
+                        { title: 'روابط محاضرات الإنجليزي', type: 'links', icon: 'fa-video', items: [] },
+                        { title: 'ملفات وشيتات الإنجليزي', type: 'files', icon: 'fa-file-pdf', items: [] }
                     ]
                 }
             ],
@@ -521,9 +511,10 @@
             ]
         };
 
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', async () => {
             initTheme();
             populateSubjectsDropdown();
+            await fetchSheetData();
             renderAll();
         });
 
@@ -541,6 +532,31 @@
             localStorage.setItem('theme', target);
             themeBtn.innerHTML = target === 'dark' ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
         });
+
+        async function fetchSheetData() {
+            try {
+                const response = await fetch(API_URL);
+                const data = await response.json();
+
+                // تفريغ البيانات القديمة
+                appData.subjects.forEach(s => s.buttons.forEach(b => b.items = []));
+
+                // إدراج البيانات الحية من الشيت
+                if (Array.isArray(data)) {
+                    data.forEach(item => {
+                        const subject = appData.subjects.find(s => s.id === item.subject);
+                        if (subject) {
+                            const btn = subject.buttons.find(b => b.type === item.button);
+                            if (btn) {
+                                btn.items.push({ name: item.title, url: item.url });
+                            }
+                        }
+                    });
+                }
+            } catch (err) {
+                console.error("خطأ أثناء جلب البيانات من الشيت:", err);
+            }
+        }
 
         function populateSubjectsDropdown() {
             const dept = document.getElementById('deptSelect').value;
@@ -569,7 +585,6 @@
             renderSchedule(dept, subject);
         }
 
-        // عرض بطاقات المواد مع أزرارها الفرعية
         function renderSubjectsView(dept, selectedSubject) {
             const container = document.getElementById('subjectsContainer');
             const filteredSubjects = appData.subjects.filter(s => {
@@ -581,7 +596,7 @@
             container.innerHTML = filteredSubjects.map(s => {
                 const buttonsHtml = s.buttons.map((btn, idx) => `
                     <button class="sub-btn" onclick="openResourceModal('${s.id}', ${idx})">
-                        <span><i class="fa-solid ${btn.icon}"></i> ${btn.title}</span>
+                        <span><i class="fa-solid ${btn.icon}"></i> ${btn.title} (${btn.items.length})</span>
                         <i class="fa-solid fa-chevron-left"></i>
                     </button>
                 `).join('');
@@ -605,7 +620,6 @@
             }).join('');
         }
 
-        // عرض نافذة الموارد المنبثقة
         function openResourceModal(subjectId, buttonIdx) {
             const subject = appData.subjects.find(s => s.id === subjectId);
             if (!subject) return;
@@ -614,10 +628,10 @@
             document.getElementById('modalTitle').innerText = `${subject.name} - ${targetBtn.title}`;
 
             const modalBody = document.getElementById('modalBody');
-            if (targetBtn.items.length === 0 || targetBtn.items[0].url === '#') {
+            if (targetBtn.items.length === 0) {
                 modalBody.innerHTML = `
                     <p style="color:var(--text-sub); text-align:center; padding:20px;">
-                        سيتم إضافة المحاضرات والملفات الخاصة بـ <b>${targetBtn.title}</b> قريباً هنا.
+                        لا توجد ملفات أو روابط مضافة في قسم <b>${targetBtn.title}</b> حتى الآن.
                     </p>`;
             } else {
                 modalBody.innerHTML = targetBtn.items.map(item => `
@@ -676,7 +690,7 @@
                 }
             });
 
-            container.innerHTML = html || `<div class="empty-box">لا توجد محاضرات مطابقة.</div>`;
+            container.innerHTML = html || `<div class="loading-text">لا توجد محاضرات في جدول هذا اليوم.</div>`;
         }
     </script>
 </body>
