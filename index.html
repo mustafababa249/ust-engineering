@@ -40,7 +40,7 @@
             margin: 0;
             padding: 0;
             font-family: 'Tajawal', sans-serif;
-            transition: all 0.2s ease;
+            transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
         }
 
         body {
@@ -89,6 +89,9 @@
             border-radius: 50%;
             cursor: pointer;
             box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .hero {
@@ -270,7 +273,7 @@
             padding-right: 10px;
         }
 
-        /* نافذة المودال لعرض الروابط والملفات داخل الموقع */
+        /* نافذة المودال */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -339,8 +342,20 @@
         .loading-text {
             text-align: center;
             color: var(--text-sub);
-            padding: 15px;
+            padding: 20px;
             font-weight: 600;
+            grid-column: 1 / -1;
+        }
+
+        .retry-btn {
+            margin-top: 10px;
+            padding: 8px 16px;
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
         }
     </style>
 </head>
@@ -391,7 +406,7 @@
             </button>
         </div>
 
-        <!-- 1. تبويب المواد والأزرار الفرعية -->
+        <!-- 1. تبويب المواد -->
         <div id="subjectsTab" class="tab-content active">
             <div id="subjectsContainer" class="grid">
                 <div class="loading-text"><i class="fa-solid fa-spinner fa-spin"></i> جاري تحميل الملفات والمحاضرات من المكتبة...</div>
@@ -404,7 +419,7 @@
         </div>
     </div>
 
-    <!-- نافذة العرض المنبثقة داخل الموقع -->
+    <!-- نافذة العرض المنبثقة -->
     <div class="modal-overlay" id="resourceModal">
         <div class="modal-box">
             <div class="modal-header">
@@ -412,13 +427,12 @@
                 <button class="close-btn" onclick="closeModal()">&times;</button>
             </div>
             <div id="modalBody">
-                <!-- الروابط والملفات ستظهر هنا -->
+                <!-- الروابط والملفات -->
             </div>
         </div>
     </div>
 
     <script>
-        // رابط الـ API الجديد والخاص بك مباشرة
         const API_URL = "https://script.google.com/macros/s/AKfycbxNZjJbNQ-l7rtWHKSlD_zz3CTGCojgo9OiFF9jQmO9CsoJ-yJuPC4v7JiHFheXLN4/exec";
 
         const appData = {
@@ -516,6 +530,7 @@
             populateSubjectsDropdown();
             await fetchSheetData();
             renderAll();
+            setupModalListeners();
         });
 
         const themeBtn = document.getElementById('themeBtn');
@@ -536,12 +551,11 @@
         async function fetchSheetData() {
             try {
                 const response = await fetch(API_URL);
+                if (!response.ok) throw new Error("فشل في الاتصال بالسيرفر");
+                
                 const data = await response.json();
-
-                // تفريغ البيانات القديمة
                 appData.subjects.forEach(s => s.buttons.forEach(b => b.items = []));
 
-                // إدراج البيانات الحية من الشيت
                 if (Array.isArray(data)) {
                     data.forEach(item => {
                         const subject = appData.subjects.find(s => s.id === item.subject);
@@ -554,7 +568,15 @@
                     });
                 }
             } catch (err) {
-                console.error("خطأ أثناء جلب البيانات من الشيت:", err);
+                console.error("خطأ جلب البيانات:", err);
+                const container = document.getElementById('subjectsContainer');
+                if (container) {
+                    container.innerHTML = `
+                        <div class="loading-text" style="color: #ff4d4d;">
+                            <i class="fa-solid fa-circle-exclamation"></i> تعذر جلب البيانات الحية من المكتبة.
+                            <br><button class="retry-btn" onclick="location.reload()">إعادة المحاولة</button>
+                        </div>`;
+                }
             }
         }
 
@@ -592,6 +614,11 @@
                 const passSubj = (selectedSubject === 'all') || (s.id === selectedSubject);
                 return passDept && passSubj;
             });
+
+            if (filteredSubjects.length === 0) {
+                container.innerHTML = `<div class="loading-text">لا توجد مواد مطابقة للخيارات المحددة.</div>`;
+                return;
+            }
 
             container.innerHTML = filteredSubjects.map(s => {
                 const buttonsHtml = s.buttons.map((btn, idx) => `
@@ -637,7 +664,7 @@
                 modalBody.innerHTML = targetBtn.items.map(item => `
                     <div class="resource-item">
                         <span style="font-weight:700;">${item.name}</span>
-                        <a href="${item.url}" target="_blank" class="resource-link">
+                        <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="resource-link">
                             فتح الرابط <i class="fa-solid fa-arrow-up-right-from-square"></i>
                         </a>
                     </div>
@@ -649,6 +676,16 @@
 
         function closeModal() {
             document.getElementById('resourceModal').classList.remove('active');
+        }
+
+        function setupModalListeners() {
+            const modal = document.getElementById('resourceModal');
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeModal();
+            });
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
+            });
         }
 
         function renderSchedule(dept, selectedSubject) {
