@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المنصة الهندسية الموحدة - الدفعة المركزية</title>
+    <!-- خط Tajawal الأنيق من Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <!-- مكتبة الأيقونات FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ==================== 1. المتغيرات والتنسيقات الأساسية ==================== */
+        :root {
+            --bg-body: #f4f7fe;
+            --bg-card: #ffffff;
+            --bg-header: rgba(255, 255, 255, 0.85);
+            --text-main: #2b3674;
+            --text-muted: #a3edda;
+            --text-sub: #707ebe;
+            --primary: #4318ff;
+            --primary-hover: #3311db;
+            --accent: #00d589;
+            --border: #e9edf7;
+            --shadow: 0px 18px 40px rgba(112, 144, 176, 0.12);
+            --badge-bg: #f4f7fe;
+        }
+
+        /* متغيرات الوضع المظلم Dark Mode */
+        [data-theme="dark"] {
+            --bg-body: #0b1437;
+            --bg-card: #111c44;
+            --bg-header: rgba(17, 28, 68, 0.85);
+            --text-main: #ffffff;
+            --text-sub: #a3edda;
+            --primary: #7551ff;
+            --primary-hover: #5a32ea;
+            --accent: #00e676;
+            --border: #1b254b;
+            --shadow: 0px 18px 40px rgba(0, 0, 0, 0.4);
+            --badge-bg: #1b254b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 50px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ==================== 2. الهيدر وشريط التنقل ==================== */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            background-color: var(--bg-header);
+            border-bottom: 1px solid var(--border);
+            padding: 15px 0;
+        }
+
+        .nav-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .theme-toggle-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .theme-toggle-btn:hover {
+            color: var(--primary);
+        }
+
+        /* ==================== 3. قسم اختيار التخصص ==================== */
+        .hero-section {
+            margin: 30px 0 20px 0;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .hero-subtitle {
+            color: var(--text-sub);
+            margin-bottom: 25px;
+        }
+
+        .filter-container {
+            background: var(--bg-card);
+            padding: 15px 20px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            max-width: 450px;
+        }
+
+        .filter-group label {
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px 15px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-size: 0.95rem;
+            outline: none;
+            cursor: pointer;
+        }
+
+        /* ==================== 4. التبويبات Tabs ==================== */
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin: 25px 0;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 10px;
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-sub);
+            cursor: pointer;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: #ffffff;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ==================== 5. كروت المحتوى (شبكة العرض) ==================== */
+        .grid-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .card-badge {
+            background: var(--badge-bg);
+            color: var(--primary);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            border: 1px solid var(--border);
+        }
+
+        .card-badge.biomedical {
+            color: var(--accent);
+        }
+
+        .card-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .card-info {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            color: var(--text-sub);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .card-info div {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-download {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background-color: var(--primary);
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .btn-download:hover {
+            background-color: var(--primary-hover);
+        }
+
+        /* تنسيق الجدول الأسبوعي */
+        .day-group {
+            margin-bottom: 30px;
+        }
+
+        .day-title {
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary);
+            border-right: 4px solid var(--primary);
+            padding-right: 10px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-sub);
+            font-size: 1.1rem;
+            grid-column: 1 / -1;
+        }
+
+        /* ==================== 6. التصميم المتجاوب للهواتف ==================== */
+        @media (max-width: 768px) {
+            .hero-title { font-size: 1.5rem; }
+            .tabs { flex-wrap: nowrap; }
+            .filter-container { flex-direction: column; }
+            .filter-group { max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- الهيدر الرئيسي -->
+    <header>
+        <div class="container nav-wrapper">
+            <div class="logo">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <span>منصة الهندسة الموحدة</span>
+            </div>
+            <div class="header-actions">
+                <button class="theme-toggle-btn" id="themeToggleBtn" title="تبديل الوضع">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- قسم العنوان والتصفية -->
+        <section class="hero-section">
+            <h1 class="hero-title">الموقع المركزي للمحاضرات والملفات</h1>
+            <p class="hero-subtitle">اختر قسمك الأكاديمي لعرض الجدول والملفات الخاصة بك بدقة</p>
+            
+            <div class="filter-container">
+                <div class="filter-group">
+                    <label for="deptSelect"><i class="fa-solid fa-layer-group"></i> القسم الأكاديمي:</label>
+                    <select id="deptSelect" onchange="renderAll()">
+                        <!-- يتم ملؤها ديناميكياً بواسطة JavaScript -->
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="subjectSelect"><i class="fa-solid fa-book"></i> المادة:</label>
+                    <select id="subjectSelect" onchange="renderAll()">
+                        <option value="all">جميع المواد</option>
+                        <!-- يتم ملؤها ديناميكياً -->
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <!-- تبويبات التنقل -->
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('scheduleTab', this)">
+                <i class="fa-solid fa-calendar-days"></i> الجدول الأسبوعي
+            </button>
+            <button class="tab-btn" onclick="switchTab('filesTab', this)">
+                <i class="fa-solid fa-folder-open"></i> مكتبة الملفات
+            </button>
+            <button class="tab-btn" onclick="switchTab('eventsTab', this)">
+                <i class="fa-solid fa-clock"></i> الامتحانات والفعاليات
+            </button>
+        </div>
+
+        <!-- 1. محتوى الجدول الأسبوعي -->
+        <div id="scheduleTab" class="tab-content active">
+            <div id="scheduleContainer"></div>
+        </div>
+
+        <!-- 2. محتوى مكتبة الملفات -->
+        <div id="filesTab" class="tab-content">
+            <div id="filesContainer" class="grid-layout"></div>
+        </div>
+
+        <!-- 3. محتوى الفعاليات والامتحانات -->
+        <div id="eventsTab" class="tab-content">
+            <div id="eventsContainer" class="grid-layout"></div>
+        </div>
+    </div>
+
+    <script>
+        /* ==========================================================================
+           قاعدة البيانات المحلية (JSON Data Structure)
+           يمكنك إضافة/تعديل/حذف البيانات بسهولة من هنا مستقبلاً
+           ========================================================================== */
+        const appData = {
+            // الأقسام الهندسيّة
+            departments: [
+                { id: 'all', name: 'جميع المواد المشتركة (عام)' },
+                { id: 'biomedical', name: 'الهندسة الطبية الحيوية (Biomedical)' },
+                { id: 'civil', name: 'الهندسة المدنية (Civil)' },
+                { id: 'electrical', name: 'الهندسة الكهربائية (Electrical)' }
+            ],
+
+            // قائمة المواد
+            subjects: [
+                { id: 'calc2', name: 'الحسبان 2 (Calculus II)', isGeneral: true },
+                { id: 'physics', name: 'الفيزياء (Physics)', isGeneral: true },
+                { id: 'geom', name: 'الهندسة التحليلية (Analytical Geometry)', isGeneral: true },
+                { id: 'drawing', name: 'الرسم الهندسي (Engineering Drawing)', isGeneral: true },
+                { id: 'english', name: 'اللغة الإنجليزية (English)', isGeneral: true },
+                { id: 'prog', name: 'البرمجة C (Programming)', isGeneral: true },
+                // مادة مخصصة للطبية الحيوية فقط
+                { id: 'biochem', name: 'الكيمياء الحيوية (Biochemistry)', isGeneral: false, deptId: 'biomedical' }
+            ],
+
+            // الجدول الأسبوعي
+            schedule: [
+                { day: 'الأحد', subjectId: 'calc2', time: '08:00 ص - 10:00 ص', room: 'القاعة الكبرى 1', deptId: 'all' },
+                { day: 'الأحد', subjectId: 'prog', time: '10:15 ص - 12:15 م', room: 'معمل الحاسوب 2', deptId: 'all' },
+                { day: 'الإثنين', subjectId: 'biochem', time: '08:00 ص - 10:00 ص', room: 'معمل الطبية الحيوية', deptId: 'biomedical' },
+                { day: 'الإثنين', subjectId: 'drawing', time: '10:15 ص - 01:15 م', room: 'مرسم الهندسة', deptId: 'all' },
+                { day: 'الثلاثاء', subjectId: 'physics', time: '09:00 ص - 11:00 ص', room: 'مدرج (أ)', deptId: 'all' },
+                { day: 'الأربعاء', subjectId: 'geom', time: '08:00 ص - 10:00 ص', room: 'قاعة 3', deptId: 'all' },
+                { day: 'الخميس', subjectId: 'english', time: '10:00 ص - 12:00 م', room: 'قاعة 2', deptId: 'all' }
+            ],
+
+            // مكتبة الملفات (المحاضرات، الشيتات، الأكواد)
+            files: [
+                { title: 'محاضرة 1 - Introduction to Integration', subjectId: 'calc2', type: 'lecture', link: '#', date: '2026-09-10' },
+                { title: 'شيت 1 - Vector Mechanics Physics', subjectId: 'physics', type: 'sheet', link: '#', date: '2026-09-12' },
+                { title: 'أكواد لغة C - Basic Syntax & Loops', subjectId: 'prog', type: 'code', link: '#', date: '2026-09-14' },
+                { title: 'مذكرة مقدمة الكيمياء الحيوية (Introduction to Biochemistry)', subjectId: 'biochem', type: 'lecture', link: '#', date: '2026-09-15' },
+                { title: 'أساسيات الرسم الهندسي - إسقاط الأشكال', subjectId: 'drawing', type: 'sheet', link: '#', date: '2026-09-11' }
+            ],
+
+            // الفعاليات والامتحانات
+            events: [
+                { title: 'كويز الكيمياء الحيوية الأول (Biochemistry Quiz 1)', subjectId: 'biochem', date: '2026-09-25', time: '08:00 ص', type: 'exam' },
+                { title: 'تسليم التكليف الأول برمجيات C (Assignment 1)', subjectId: 'prog', date: '2026-09-28', time: '11:59 م', type: 'assignment' },
+                { title: 'امتحان منتصف الفصل - الفيزياء العامة', subjectId: 'physics', date: '2026-10-05', time: '09:00 ص', type: 'exam' }
+            ]
+        };
+
+        /* ==========================================================================
+           منطق وتفاعلات التطبيق (JavaScript Application Logic)
+           ========================================================================== */
+
+        // تهيئة التخصصات والمواد عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', () => {
+            initTheme();
+            populateDepartments();
+            populateSubjects();
+            renderAll();
+        });
+
+        // 1. إدارة الوضع المظلم (Dark Mode)
+        const themeToggleBtn = document.getElementById('themeToggleBtn');
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            updateThemeIcon(savedTheme);
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+
+        function updateThemeIcon(theme) {
+            themeToggleBtn.innerHTML = theme === 'dark' 
+                ? '<i class="fa-solid fa-sun"></i>' 
+                : '<i class="fa-solid fa-moon"></i>';
+        }
+
+        // 2. تعبئة القوائم المنسدلة
+        function populateDepartments() {
+            const deptSelect = document.getElementById('deptSelect');
+            deptSelect.innerHTML = appData.departments.map(d => `<option value="${d.id}">${d.name}</option>`).join('');
+        }
+
+        function populateSubjects() {
+            const selectedDept = document.getElementById('deptSelect').value;
+            const subjectSelect = document.getElementById('subjectSelect');
+            
+            // فلترة المواد بناءً على القسم المحدد
+            const availableSubjects = appData.subjects.filter(s => {
+                return s.isGeneral || selectedDept === 'all' || s.deptId === selectedDept;
+            });
+
+            subjectSelect.innerHTML = '<option value="all">جميع المواد</option>' + 
+                availableSubjects.map(s => `<option value="${s.id}">${s.name}</option>`).join('');
+        }
+
+        // 3. التنقل بين التبويبات (Tabs)
+        function switchTab(tabId, element) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            element.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        // 4. دالة التصفية والعرض الشامل
+        function renderAll() {
+            populateSubjects(); // تحديث المواد المتاحة عند تغيير القسم
+            const selectedDept = document.getElementById('deptSelect').value;
+            const selectedSubject = document.getElementById('subjectSelect').value;
+
+            renderSchedule(selectedDept, selectedSubject);
+            renderFiles(selectedDept, selectedSubject);
+            renderEvents(selectedDept, selectedSubject);
+        }
+
+        // مساعد: دالة فحص تصفية المادة أو القسم
+        function isItemVisible(itemDeptId, itemSubjectId, selectedDept, selectedSubject) {
+            const deptMatch = (selectedDept === 'all') 
+                ? (itemDeptId === 'all' || itemDeptId === undefined) 
+                : (itemDeptId === 'all' || itemDeptId === selectedDept || itemDeptId === undefined);
+                
+            const subjectMatch = (selectedSubject === 'all') || (itemSubjectId === selectedSubject);
+            return deptMatch && subjectMatch;
+        }
+
+        // 5. عرض الجدول الأسبوعي
+        function renderSchedule(selectedDept, selectedSubject) {
+            const container = document.getElementById('scheduleContainer');
+            const days = ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس'];
+            let html = '';
+
+            days.forEach(day => {
+                const dayItems = appData.schedule.filter(item => {
+                    const subject = appData.subjects.find(s => s.id === item.subjectId);
+                    const itemDept = item.deptId || (subject ? subject.deptId : 'all');
+                    
+                    return item.day === day && isItemVisible(itemDept, item.subjectId, selectedDept, selectedSubject);
+                });
+
+                if (dayItems.length > 0) {
+                    html += `
+                        <div class="day-group">
+                            <h3 class="day-title"><i class="fa-regular fa-calendar"></i> ${day}</h3>
+                            <div class="grid-layout">
+                                ${dayItems.map(item => {
+                                    const subject = appData.subjects.find(s => s.id === item.subjectId);
+                                    const isBio = subject && subject.deptId === 'biomedical';
+                                    return `
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <span class="card-title">${subject ? subject.name : item.subjectId}</span>
+                                                <span class="card-badge ${isBio ? 'biomedical' : ''}">${isBio ? 'طبية حيوية' : 'مشترك'}</span>
+                                            </div>
+                                            <div class="card-info">
+                                                <div><i class="fa-regular fa-clock"></i> ${item.time}</div>
+                                                <div><i class="fa-solid fa-location-dot"></i> ${item.room}</div>
+                                            </div>
+                                        </div>
+                                    `;
+                                }).join('')}
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+
+            container.innerHTML = html || '<div class="empty-state"><i class="fa-solid fa-folder-open"></i> لا توجد محاضرات مطابقة للتصفية المختارة.</div>';
+        }
+
+        // 6. عرض مكتبة الملفات
+        function renderFiles(selectedDept, selectedSubject) {
+            const container = document.getElementById('filesContainer');
+            const filteredFiles = appData.files.filter(file => {
+                const subject = appData.subjects.find(s => s.id === file.subjectId);
+                const itemDept = subject ? (subject.isGeneral ? 'all' : subject.deptId) : 'all';
+                return isItemVisible(itemDept, file.subjectId, selectedDept, selectedSubject);
+            });
+
+            if (filteredFiles.length === 0) {
+                container.innerHTML = '<div class="empty-state"><i class="fa-solid fa-file-excel"></i> لا توجد ملفات متوفرة لخيارات التصفية هذه.</div>';
+                return;
+            }
+
+            container.innerHTML = filteredFiles.map(file => {
+                const subject = appData.subjects.find(s => s.id === file.subjectId);
+                let typeIcon = 'fa-file-pdf';
+                let typeText = 'محاضرة';
+                
+                if (file.type === 'sheet') { typeIcon = 'fa-file-pen'; typeText = 'شيت / تمارين'; }
+                if (file.type === 'code') { typeIcon = 'fa-code'; typeText = 'كود بردمجي'; }
+
+                return `
+                    <div class="card">
+                        <div>
+                            <div class="card-header">
+                                <span class="card-badge">${typeText}</span>
+                                <small style="color: var(--text-sub);">${file.date}</small>
+                            </div>
+                            <h4 class="card-title">${file.title}</h4>
+                            <div class="card-info">
+                                <div><i class="fa-solid fa-book-open"></i> ${subject ? subject.name : ''}</div>
+                            </div>
+                        </div>
+                        <a href="${file.link}" target="_blank" class="btn-download">
+                            <i class="fa-solid fa-download"></i> فتح / تحميل الملف
+                        </a>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // 7. عرض الامتحانات والفعاليات
+        function renderEvents(selectedDept, selectedSubject) {
+            const container = document.getElementById('eventsContainer');
+            const filteredEvents = appData.events.filter(event => {
+                const subject = appData.subjects.find(s => s.id === event.subjectId);
+                const itemDept = subject ? (subject.isGeneral ? 'all' : subject.deptId) : 'all';
+                return isItemVisible(itemDept, event.subjectId, selectedDept, selectedSubject);
+            });
+
+            if (filteredEvents.length === 0) {
+                container.innerHTML = '<div class="empty-state"><i class="fa-solid fa-bell-slash"></i> لا توجد امتحانات أو فعاليات قادمة.</div>';
+                return;
+            }
+
+            container.innerHTML = filteredEvents.map(event => {
+                const subject = appData.subjects.find(s => s.id === event.subjectId);
+                const isExam = event.type === 'exam';
+
+                return `
+                    <div class="card" style="border-right: 4px solid ${isExam ? '#ff4d4f' : 'var(--primary)'};">
+                        <div>
+                            <div class="card-header">
+                                <span class="card-badge" style="color: ${isExam ? '#ff4d4f' : 'var(--primary)'}">
+                                    ${isExam ? 'امتحان / كويز' : 'تسليم تكليف'}
+                                </span>
+                            </div>
+                            <h4 class="card-title">${event.title}</h4>
+                            <div class="card-info">
+                                <div><i class="fa-solid fa-book"></i> ${subject ? subject.name : ''}</div>
+                                <div><i class="fa-regular fa-calendar-check"></i> التاريخ: ${event.date}</div>
+                                <div><i class="fa-regular fa-clock"></i> الوقت: ${event.time}</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+    </script>
+</body>
+</html>
