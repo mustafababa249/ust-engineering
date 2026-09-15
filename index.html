@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>المنصة الهندسية الموحدة - سمستر 2</title>
+    <title>المنصة الهندسية الموحدة - المكتبة والجدول</title>
     <!-- خط Tajawal -->
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
-    <!-- مكتبة FontAwesome للأيقونات -->
+    <!-- أيقونات FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
@@ -18,7 +18,6 @@
             --text-sub: #707ebe;
             --primary: #4318ff;
             --primary-hover: #3311db;
-            --telegram-color: #229ED9;
             --accent: #00d589;
             --border: #e9edf7;
             --shadow: 0px 18px 40px rgba(112, 144, 176, 0.12);
@@ -100,7 +99,7 @@
         .hero h1 { font-size: 1.8rem; margin-bottom: 8px; }
         .hero p { color: var(--text-sub); font-size: 0.95rem; }
 
-        /* التصفية */
+        /* أدوات التصفية */
         .filter-card {
             background: var(--bg-card);
             padding: 20px;
@@ -174,10 +173,10 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* البطاقات */
+        /* البطاقات والأزرار الفرعية */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 20px;
         }
 
@@ -212,9 +211,9 @@
         .badge.bio { color: var(--accent); }
 
         .subject-title {
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             font-weight: 800;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
         .info-list {
@@ -225,34 +224,39 @@
         }
 
         .info-list li {
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
+        .sub-buttons {
+            display: flex;
+            flex-direction: column;
             gap: 8px;
-            padding: 11px;
-            border-radius: 12px;
-            text-decoration: none;
+            margin-top: 10px;
+        }
+
+        .sub-btn {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 14px;
+            border-radius: 10px;
+            background: var(--bg-body);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            font-size: 0.88rem;
             font-weight: 700;
-            font-size: 0.9rem;
-            border: none;
             cursor: pointer;
-            width: 100%;
+            text-decoration: none;
         }
 
-        .btn-telegram {
-            background: var(--telegram-color);
-            color: white;
-            box-shadow: 0 4px 12px rgba(34, 158, 217, 0.25);
+        .sub-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateX(-3px);
         }
-
-        .btn-telegram:hover { opacity: 0.92; transform: translateY(-2px); }
 
         .day-header {
             font-size: 1.25rem;
@@ -266,11 +270,70 @@
             padding-right: 10px;
         }
 
-        .empty-box {
-            text-align: center;
-            padding: 40px;
+        /* نافذة المودال لعرض الروابط والملفات داخل الموقع */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal-overlay.active { display: flex; }
+
+        .modal-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            max-width: 550px;
+            width: 100%;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
+        }
+
+        .modal-title { font-size: 1.2rem; font-weight: 800; }
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.4rem;
             color: var(--text-sub);
-            grid-column: 1 / -1;
+            cursor: pointer;
+        }
+
+        .resource-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px;
+            background: var(--bg-body);
+            border-radius: 10px;
+            margin-bottom: 10px;
+            border: 1px solid var(--border);
+        }
+
+        .resource-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
     </style>
 </head>
@@ -290,8 +353,8 @@
 
     <div class="container">
         <section class="hero">
-            <h1>مواد سمستر 2 والجدول الدراسي</h1>
-            <p>اختر المادة لمعرفة مواعيد المحاضره وللوصول الفوري لملفاتها عبر البوت <b>@engust24_bot</b></p>
+            <h1>المكتبة الأكاديمية وجدول المحاضرات</h1>
+            <p>اختر أي مادة لاستعراض المحاضرات المباشرة، التمارين، والملفات داخل الموقع مباشرة</p>
         </section>
 
         <!-- أدوات التصفية -->
@@ -299,7 +362,7 @@
             <div class="filter-item">
                 <label for="deptSelect"><i class="fa-solid fa-layer-group"></i> القسم الأكاديمي:</label>
                 <select id="deptSelect" onchange="onFilterChange()">
-                    <option value="all">جميع أقسام الهندسة (عام)</option>
+                    <option value="all">جميع أقسام الهندسة (مشترك)</option>
                     <option value="biomedical">الهندسة الطبية الحيوية (Biomedical)</option>
                 </select>
             </div>
@@ -313,56 +376,143 @@
 
         <!-- التبويبات -->
         <div class="tabs">
-            <button class="tab-btn active" onclick="switchTab('scheduleTab', this)">
+            <button class="tab-btn active" onclick="switchTab('subjectsTab', this)">
+                <i class="fa-solid fa-folder-open"></i> مواد سمستر 2 والمكتبة
+            </button>
+            <button class="tab-btn" onclick="switchTab('scheduleTab', this)">
                 <i class="fa-solid fa-calendar-days"></i> جدول المحاضرات
             </button>
-            <button class="tab-btn" onclick="switchTab('subjectsTab', this)">
-                <i class="fa-solid fa-folder-open"></i> مواد سمستر 2 والبوت
-            </button>
         </div>
 
-        <!-- 1. تبويب الجدول -->
-        <div id="scheduleTab" class="tab-content active">
+        <!-- 1. تبويب المواد والأزرار الفرعية -->
+        <div id="subjectsTab" class="tab-content active">
+            <div id="subjectsContainer" class="grid"></div>
+        </div>
+
+        <!-- 2. تبويب جدول المحاضرات -->
+        <div id="scheduleTab" class="tab-content">
             <div id="scheduleContainer"></div>
         </div>
+    </div>
 
-        <!-- 2. تبويب المواد مع أزرار البوت -->
-        <div id="subjectsTab" class="tab-content">
-            <div id="subjectsContainer" class="grid"></div>
+    <!-- نافذة العرض المنبثقة داخل الموقع -->
+    <div class="modal-overlay" id="resourceModal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <div class="modal-title" id="modalTitle">عنوان المحتوى</div>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div id="modalBody">
+                <!-- الروابط والملفات ستظهر هنا -->
+            </div>
         </div>
     </div>
 
     <script>
-        // إعدادات البوت وقاعدة البيانات الرسمية لسمستر 2
-        const CONFIG = {
-            botUsername: "engust24_bot",
-            // إذا قمت بإنشاء رابط Google Sheet API ضعه هنا ليقرأ الموقع التحديثات منه مباشرة
-            googleSheetApiUrl: "" 
-        };
-
+        /* ==========================================================================
+           قواعد البيانات والموارد الخاصة بك لكل مادة بأزرارها الفرعية
+           ========================================================================== */
         const appData = {
-            // أسماء المواد مطابقة تماماً لأزرار البوت في الصورة
             subjects: [
-                { id: 'calc2', name: 'الحسبان 2', doc: 'د. هشام', isGeneral: true },
-                { id: 'physics2', name: 'الفيزياء 2', doc: 'د. الزبير جعفر', isGeneral: true },
-                { id: 'drawing', name: 'اساسيات الرسم الهندسي', doc: 'د. مصطفى', isGeneral: true },
-                { id: 'programming', name: 'مبادئ البرمجة', doc: 'دكتورة وسام', isGeneral: true },
-                { id: 'geometry', name: 'الهندسة التحليلية', doc: 'دكتورة زينب', isGeneral: true },
-                { id: 'biochem', name: 'الكيمياء الحيويه', doc: 'دكتورة حنان', isGeneral: false, deptId: 'biomedical' },
-                { id: 'english', name: 'اللغة الإنجليزية', doc: 'دكتورة القوت', isGeneral: true }
+                {
+                    id: 'physics2',
+                    name: 'الفيزياء 2',
+                    doc: 'د. الزبير جعفر',
+                    isGeneral: true,
+                    buttons: [
+                        { title: 'روابط محاضرات الفيزياء', type: 'links', icon: 'fa-video', items: [
+                            { name: 'محاضرة 5 (Scalelite)', url: 'https://scalelite.ust.edu.sd/playback/presentation/2.3/1212aa2bee0f972409f8b9bf708eb623f41fab18-1787126960105' },
+                            { name: 'محاضرة 6 (Scalelite)', url: 'https://scalelite.ust.edu.sd/playback/presentation/2.3/3f410b460fe2a324928a1fceafeed34418e036f9-1788942552009' }
+                        ]},
+                        { title: 'روابط التمارين والتتوريال', type: 'tutorials', icon: 'fa-pen-ruler', items: [
+                            { name: 'رابط تمارين التتوريال 1', url: '#' }
+                        ]},
+                        { title: 'ملفات الفيزياء', type: 'files', icon: 'fa-file-pdf', items: [
+                            { name: 'شيت الفيزياء - الجزء الأول.pdf', url: '#' }
+                        ]}
+                    ]
+                },
+                {
+                    id: 'biochem',
+                    name: 'الكيمياء الحيويه',
+                    doc: 'دكتورة حنان',
+                    isGeneral: false,
+                    deptId: 'biomedical',
+                    buttons: [
+                        { title: 'روابط محاضرات الكيمياء الحيوية', type: 'links', icon: 'fa-video', items: [
+                            { name: 'تسجيل محاضرة الكيمياء الحيوية 1', url: '#' }
+                        ]},
+                        { title: 'ملفات الكيمياء الحيوية', type: 'files', icon: 'fa-file-pdf', items: [
+                            { name: 'شيت الكيمياء الحيوية.pdf', url: '#' }
+                        ]}
+                    ]
+                },
+                {
+                    id: 'programming',
+                    name: 'مبادئ البرمجة',
+                    doc: 'دكتورة وسام',
+                    isGeneral: true,
+                    buttons: [
+                        { title: 'روابط المحاضرات', type: 'links', icon: 'fa-video', items: [
+                            { name: 'تسجيل المحاضرة النظرية', url: '#' }
+                        ]},
+                        { title: 'روابط محاضرات المعمل (اللاب)', type: 'lab', icon: 'fa-laptop-code', items: [
+                            { name: 'تسجيل لاب البرمجة', url: '#' }
+                        ]},
+                        { title: 'ملفات البرمجة', type: 'files', icon: 'fa-file-code', items: [
+                            { name: 'أكواد وملاحظات لغة C.pdf', url: '#' }
+                        ]}
+                    ]
+                },
+                {
+                    id: 'drawing',
+                    name: 'اساسيات الرسم الهندسي',
+                    doc: 'د. مصطفى',
+                    isGeneral: true,
+                    buttons: [
+                        { title: 'محاضرات الرسم الهندسي', type: 'links', icon: 'fa-video', items: [
+                            { name: 'شرح إسقاط الأشكال', url: '#' }
+                        ]},
+                        { title: 'ملفات الرسم الهندسي', type: 'files', icon: 'fa-file-pdf', items: [
+                            { name: 'شيت تمارين الرسم الهندسي.pdf', url: '#' }
+                        ]}
+                    ]
+                },
+                {
+                    id: 'calc2',
+                    name: 'الحسبان 2',
+                    doc: 'د. هشام',
+                    isGeneral: true,
+                    buttons: [
+                        { title: 'روابط محاضرات الحسبان 2', type: 'links', icon: 'fa-video', items: [
+                            { name: 'تسجيل محاضرة الحسبان', url: '#' }
+                        ]},
+                        { title: 'ملفات الحسبان 2', type: 'files', icon: 'fa-file-pdf', items: [
+                            { name: 'شيت الحسبان 2 كامل.pdf', url: '#' }
+                        ]}
+                    ]
+                },
+                {
+                    id: 'geometry',
+                    name: 'الهندسة التحليلية',
+                    doc: 'دكتورة زينب',
+                    isGeneral: true,
+                    buttons: [
+                        { title: 'روابط محاضرات الهندسة التحليلية', type: 'links', icon: 'fa-video', items: [
+                            { name: 'تسجيل محاضرة الهندسة التحليلية', url: '#' }
+                        ]},
+                        { title: 'ملفات الهندسة التحليلية', type: 'files', icon: 'fa-file-pdf', items: [
+                            { name: 'شيت الهندسة التحليلية.pdf', url: '#' }
+                        ]}
+                    ]
+                }
             ],
 
             schedule: [
-                // السبت
                 { day: 'السبت', subjectId: 'physics2', time: '03:00 م - 05:00 م', doc: 'د. الزبير جعفر', type: 'محاضرة' },
-                { day: 'السبت', subjectId: 'english', time: '05:00 م - 07:00 م', doc: 'دكتورة القوت', type: 'محاضرة' },
-
-                // الأحد
                 { day: 'الأحد', subjectId: 'drawing', time: '09:00 ص - 11:00 ص', doc: 'د. مصطفى', type: 'محاضرة' },
                 { day: 'الأحد', subjectId: 'programming', time: '11:00 ص - 01:00 م', doc: 'دكتورة وسام', type: 'محاضرة' },
                 { day: 'الأحد', subjectId: 'geometry', time: '07:00 م - 09:00 م', doc: 'تتوريال', type: 'تتوريال' },
-
-                // الأربعاء
                 { day: 'الأربعاء', subjectId: 'biochem', time: '08:00 ص - 10:00 ص', doc: 'دكتورة حنان', type: 'محاضرة (طبية حيوية)' },
                 { day: 'الأربعاء', subjectId: 'calc2', time: '10:00 ص - 12:00 م', doc: 'د. هشام', type: 'محاضرة' },
                 { day: 'الأربعاء', subjectId: 'geometry', time: '01:00 م - 03:00 م', doc: 'دكتورة زينب', type: 'محاضرة' },
@@ -377,7 +527,6 @@
             renderAll();
         });
 
-        // 1. الوضع المظلم
         const themeBtn = document.getElementById('themeBtn');
         function initTheme() {
             const theme = localStorage.getItem('theme') || 'dark';
@@ -393,11 +542,9 @@
             themeBtn.innerHTML = target === 'dark' ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
         });
 
-        // 2. قائمة التصفية
         function populateSubjectsDropdown() {
             const dept = document.getElementById('deptSelect').value;
             const select = document.getElementById('subjectSelect');
-            
             const filtered = appData.subjects.filter(s => s.isGeneral || dept === 'biomedical');
             select.innerHTML = '<option value="all">جميع المواد</option>' + 
                 filtered.map(s => `<option value="${s.id}">${s.name}</option>`).join('');
@@ -415,18 +562,79 @@
             document.getElementById(id).classList.add('active');
         }
 
-        // إنشاء رابط البوت الذكي لكل مادة
-        function getBotUrl(subjectName) {
-            return `https://t.me/${CONFIG.botUsername}?start=${encodeURIComponent(subjectName)}`;
-        }
-
-        // 3. عرض البيانات
         function renderAll() {
             const dept = document.getElementById('deptSelect').value;
             const subject = document.getElementById('subjectSelect').value;
-
-            renderSchedule(dept, subject);
             renderSubjectsView(dept, subject);
+            renderSchedule(dept, subject);
+        }
+
+        // عرض بطاقات المواد مع أزرارها الفرعية
+        function renderSubjectsView(dept, selectedSubject) {
+            const container = document.getElementById('subjectsContainer');
+            const filteredSubjects = appData.subjects.filter(s => {
+                const passDept = s.isGeneral || (dept === 'biomedical');
+                const passSubj = (selectedSubject === 'all') || (s.id === selectedSubject);
+                return passDept && passSubj;
+            });
+
+            container.innerHTML = filteredSubjects.map(s => {
+                const buttonsHtml = s.buttons.map((btn, idx) => `
+                    <button class="sub-btn" onclick="openResourceModal('${s.id}', ${idx})">
+                        <span><i class="fa-solid ${btn.icon}"></i> ${btn.title}</span>
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+                `).join('');
+
+                return `
+                    <div class="card">
+                        <div>
+                            <div class="card-header">
+                                <span class="badge ${!s.isGeneral ? 'bio' : ''}">${s.isGeneral ? 'عام' : 'طبية حيوية'}</span>
+                            </div>
+                            <div class="subject-title">${s.name}</div>
+                            <ul class="info-list">
+                                <li><i class="fa-solid fa-user-tie"></i> المحاضر: ${s.doc}</li>
+                            </ul>
+                            <div class="sub-buttons">
+                                ${buttonsHtml}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // عرض نافذة الموارد المنبثقة
+        function openResourceModal(subjectId, buttonIdx) {
+            const subject = appData.subjects.find(s => s.id === subjectId);
+            if (!subject) return;
+
+            const targetBtn = subject.buttons[buttonIdx];
+            document.getElementById('modalTitle').innerText = `${subject.name} - ${targetBtn.title}`;
+
+            const modalBody = document.getElementById('modalBody');
+            if (targetBtn.items.length === 0 || targetBtn.items[0].url === '#') {
+                modalBody.innerHTML = `
+                    <p style="color:var(--text-sub); text-align:center; padding:20px;">
+                        سيتم إضافة المحاضرات والملفات الخاصة بـ <b>${targetBtn.title}</b> قريباً هنا.
+                    </p>`;
+            } else {
+                modalBody.innerHTML = targetBtn.items.map(item => `
+                    <div class="resource-item">
+                        <span style="font-weight:700;">${item.name}</span>
+                        <a href="${item.url}" target="_blank" class="resource-link">
+                            فتح الرابط <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
+                    </div>
+                `).join('');
+            }
+
+            document.getElementById('resourceModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('resourceModal').classList.remove('active');
         }
 
         function renderSchedule(dept, selectedSubject) {
@@ -438,10 +646,8 @@
                 const dayLectures = appData.schedule.filter(item => {
                     const subjObj = appData.subjects.find(s => s.id === item.subjectId);
                     const isBioOnly = subjObj && !subjObj.isGeneral;
-                    
                     const passDept = (dept === 'biomedical') || !isBioOnly;
                     const passSubj = (selectedSubject === 'all') || (item.subjectId === selectedSubject);
-
                     return item.day === day && passDept && passSubj;
                 });
 
@@ -450,26 +656,18 @@
                     html += `<div class="grid">`;
                     dayLectures.forEach(lec => {
                         const subjObj = appData.subjects.find(s => s.id === lec.subjectId);
-                        const isBio = subjObj && !subjObj.isGeneral;
-                        const subjectName = subjObj ? subjObj.name : '';
-
                         html += `
                             <div class="card">
                                 <div>
                                     <div class="card-header">
-                                        <span class="badge ${isBio ? 'bio' : ''}">${lec.type}</span>
-                                        <small style="color:var(--text-sub);"><i class="fa-solid fa-earth-africa"></i> توقيت السودان</small>
+                                        <span class="badge">${lec.type}</span>
+                                        <small style="color:var(--text-sub);">بتوقيت السودان</small>
                                     </div>
-                                    <div class="subject-title">${subjectName}</div>
+                                    <div class="subject-title">${subjObj ? subjObj.name : ''}</div>
                                     <ul class="info-list">
-                                        <li><i class="fa-regular fa-user"></i> المحاضر: ${lec.doc}</li>
-                                        <li><i class="fa-regular fa-clock"></i> الزمن: ${lec.time}</li>
+                                        <li><i class="fa-regular fa-user"></i> ${lec.doc}</li>
+                                        <li><i class="fa-regular fa-clock"></i> ${lec.time}</li>
                                     </ul>
-                                </div>
-                                <div>
-                                    <a href="${getBotUrl(subjectName)}" target="_blank" class="btn btn-telegram">
-                                        <i class="fa-brands fa-telegram"></i> فتح ${subjectName} في البوت
-                                    </a>
                                 </div>
                             </div>
                         `;
@@ -478,51 +676,7 @@
                 }
             });
 
-            if (!html) {
-                html = `<div class="empty-box"><i class="fa-solid fa-calendar-xmark"></i> لا توجد محاضرات لمادة محددة في هذا اليوم أو الخيار المختارات.</div>`;
-            }
-
-            container.innerHTML = html;
-        }
-
-        function renderSubjectsView(dept, selectedSubject) {
-            const container = document.getElementById('subjectsContainer');
-            
-            const filteredSubjects = appData.subjects.filter(s => {
-                const passDept = s.isGeneral || (dept === 'biomedical');
-                const passSubj = (selectedSubject === 'all') || (s.id === selectedSubject);
-                return passDept && passSubj;
-            });
-
-            if (filteredSubjects.length === 0) {
-                container.innerHTML = `<div class="empty-box">لا توجد مواد للعرض.</div>`;
-                return;
-            }
-
-            container.innerHTML = filteredSubjects.map(s => {
-                const times = appData.schedule.filter(sch => sch.subjectId === s.id);
-                const timesText = times.map(t => `${t.day} (${t.time})`).join(' | ');
-
-                return `
-                    <div class="card">
-                        <div>
-                            <div class="card-header">
-                                <span class="badge ${!s.isGeneral ? 'bio' : ''}">${s.isGeneral ? 'مادة مشتركة' : 'طبية حيوية'}</span>
-                            </div>
-                            <div class="subject-title">${s.name}</div>
-                            <ul class="info-list">
-                                <li><i class="fa-solid fa-user-tie"></i> المحاضر: ${s.doc}</li>
-                                <li><i class="fa-regular fa-calendar"></i> المواعيد: ${timesText || 'غير محدد'}</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <a href="${getBotUrl(s.name)}" target="_blank" class="btn btn-telegram">
-                                <i class="fa-brands fa-telegram"></i> عرض الشيتات عبر البوت
-                            </a>
-                        </div>
-                    </div>
-                `;
-            }).join('');
+            container.innerHTML = html || `<div class="empty-box">لا توجد محاضرات مطابقة.</div>`;
         }
     </script>
 </body>
