@@ -3,42 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>المنصة الهندسية الموحدة - الدفعة المركزية</title>
-    <!-- خط Tajawal الأنيق من Google Fonts -->
+    <title>المنصة الهندسية الموحدة - الجدول والملفات</title>
+    <!-- خط Tajawal الأنيق -->
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
     <!-- مكتبة الأيقونات FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* ==================== 1. المتغيرات والتنسيقات الأساسية ==================== */
         :root {
             --bg-body: #f4f7fe;
             --bg-card: #ffffff;
-            --bg-header: rgba(255, 255, 255, 0.85);
-            --text-main: #2b3674;
-            --text-muted: #a3edda;
+            --bg-header: rgba(255, 255, 255, 0.9);
+            --text-main: #1b2559;
             --text-sub: #707ebe;
             --primary: #4318ff;
             --primary-hover: #3311db;
+            --telegram-color: #0088cc;
             --accent: #00d589;
             --border: #e9edf7;
             --shadow: 0px 18px 40px rgba(112, 144, 176, 0.12);
-            --badge-bg: #f4f7fe;
         }
 
-        /* متغيرات الوضع المظلم Dark Mode */
         [data-theme="dark"] {
             --bg-body: #0b1437;
             --bg-card: #111c44;
-            --bg-header: rgba(17, 28, 68, 0.85);
+            --bg-header: rgba(17, 28, 68, 0.9);
             --text-main: #ffffff;
             --text-sub: #a3edda;
             --primary: #7551ff;
             --primary-hover: #5a32ea;
-            --accent: #00e676;
             --border: #1b254b;
             --shadow: 0px 18px 40px rgba(0, 0, 0, 0.4);
-            --badge-bg: #1b254b;
         }
 
         * {
@@ -46,23 +41,22 @@
             margin: 0;
             padding: 0;
             font-family: 'Tajawal', sans-serif;
-            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+            transition: all 0.25s ease;
         }
 
         body {
             background-color: var(--bg-body);
             color: var(--text-main);
-            min-height: 100vh;
-            padding-bottom: 50px;
+            padding-bottom: 60px;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
             padding: 0 20px;
         }
 
-        /* ==================== 2. الهيدر وشريط التنقل ==================== */
+        /* الهيدر */
         header {
             position: sticky;
             top: 0;
@@ -82,101 +76,81 @@
         .logo {
             display: flex;
             align-items: center;
-            gap: 12px;
-            font-size: 1.4rem;
+            gap: 10px;
+            font-size: 1.3rem;
             font-weight: 800;
             color: var(--primary);
         }
 
-        .logo i {
-            font-size: 1.8rem;
-        }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .theme-toggle-btn {
+        .theme-btn {
             background: var(--bg-card);
             border: 1px solid var(--border);
             color: var(--text-main);
-            width: 42px;
-            height: 42px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
             box-shadow: var(--shadow);
         }
 
-        .theme-toggle-btn:hover {
-            color: var(--primary);
-        }
-
-        /* ==================== 3. قسم اختيار التخصص ==================== */
-        .hero-section {
-            margin: 30px 0 20px 0;
+        /* قسم التصفية */
+        .hero {
             text-align: center;
+            margin: 30px 0;
         }
 
-        .hero-title {
-            font-size: 2rem;
-            font-weight: 800;
+        .hero h1 {
+            font-size: 1.8rem;
             margin-bottom: 8px;
         }
 
-        .hero-subtitle {
+        .hero p {
             color: var(--text-sub);
-            margin-bottom: 25px;
+            font-size: 0.95rem;
         }
 
-        .filter-container {
+        .filter-card {
             background: var(--bg-card);
-            padding: 15px 20px;
-            border-radius: 16px;
+            padding: 20px;
+            border-radius: 18px;
             box-shadow: var(--shadow);
             border: 1px solid var(--border);
             display: flex;
             flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
             gap: 15px;
+            margin-bottom: 30px;
         }
 
-        .filter-group {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            width: 100%;
-            max-width: 450px;
+        .filter-item {
+            flex: 1;
+            min-width: 240px;
         }
 
-        .filter-group label {
+        .filter-item label {
+            display: block;
             font-weight: 700;
-            white-space: nowrap;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
         }
 
         select {
             width: 100%;
-            padding: 10px 15px;
-            border-radius: 10px;
+            padding: 12px;
+            border-radius: 12px;
             border: 1px solid var(--border);
-            background-color: var(--bg-body);
+            background: var(--bg-body);
             color: var(--text-main);
             font-size: 0.95rem;
             outline: none;
             cursor: pointer;
+            font-weight: 600;
         }
 
-        /* ==================== 4. التبويبات Tabs ==================== */
+        /* التبويبات */
         .tabs {
             display: flex;
             gap: 10px;
-            margin: 25px 0;
+            margin-bottom: 25px;
             border-bottom: 2px solid var(--border);
             padding-bottom: 10px;
             overflow-x: auto;
@@ -191,10 +165,10 @@
             color: var(--text-sub);
             cursor: pointer;
             border-radius: 10px;
+            white-space: nowrap;
             display: flex;
             align-items: center;
             gap: 8px;
-            white-space: nowrap;
         }
 
         .tab-btn.active {
@@ -202,34 +176,27 @@
             color: #ffffff;
         }
 
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-            animation: fadeIn 0.4s ease;
-        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.3s ease; }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px); }
+            from { opacity: 0; transform: translateY(5px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ==================== 5. كروت المحتوى (شبكة العرض) ==================== */
-        .grid-layout {
+        /* بطاقات العرض */
+        .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
             gap: 20px;
         }
 
         .card {
-            background-color: var(--bg-card);
+            background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 20px;
+            border-radius: 18px;
             padding: 20px;
             box-shadow: var(--shadow);
-            position: relative;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -238,424 +205,334 @@
         .card-header {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 15px;
+            align-items: center;
+            margin-bottom: 12px;
         }
 
-        .card-badge {
-            background: var(--badge-bg);
+        .badge {
+            background: var(--bg-body);
             color: var(--primary);
-            padding: 5px 12px;
+            padding: 4px 10px;
             border-radius: 20px;
             font-size: 0.8rem;
             font-weight: 700;
             border: 1px solid var(--border);
         }
 
-        .card-badge.biomedical {
-            color: var(--accent);
-        }
+        .badge.bio { color: var(--accent); }
 
-        .card-title {
+        .subject-title {
             font-size: 1.15rem;
-            font-weight: 700;
-            margin-bottom: 8px;
+            font-weight: 800;
+            margin-bottom: 10px;
         }
 
-        .card-info {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
+        .info-list {
+            list-style: none;
             color: var(--text-sub);
-            font-size: 0.9rem;
-            margin-bottom: 15px;
+            font-size: 0.92rem;
+            margin-bottom: 18px;
         }
 
-        .card-info div {
+        .info-list li {
+            margin-bottom: 8px;
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
-        .btn-download {
+        .action-btns {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
-            background-color: var(--primary);
-            color: white;
             padding: 10px;
             border-radius: 10px;
             text-decoration: none;
             font-weight: 700;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             border: none;
             cursor: pointer;
             width: 100%;
         }
 
-        .btn-download:hover {
-            background-color: var(--primary-hover);
-        }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: var(--primary-hover); }
 
-        /* تنسيق الجدول الأسبوعي */
-        .day-group {
-            margin-bottom: 30px;
-        }
+        .btn-telegram { background: var(--telegram-color); color: white; }
+        .btn-telegram:hover { opacity: 0.9; }
 
-        .day-title {
-            font-size: 1.3rem;
+        .day-header {
+            font-size: 1.25rem;
             font-weight: 800;
-            margin-bottom: 15px;
+            margin: 25px 0 15px 0;
+            color: var(--primary);
             display: flex;
             align-items: center;
-            gap: 10px;
-            color: var(--primary);
+            gap: 8px;
             border-right: 4px solid var(--primary);
             padding-right: 10px;
         }
 
-        .empty-state {
+        .empty-box {
             text-align: center;
             padding: 40px;
             color: var(--text-sub);
-            font-size: 1.1rem;
             grid-column: 1 / -1;
-        }
-
-        /* ==================== 6. التصميم المتجاوب للهواتف ==================== */
-        @media (max-width: 768px) {
-            .hero-title { font-size: 1.5rem; }
-            .tabs { flex-wrap: nowrap; }
-            .filter-container { flex-direction: column; }
-            .filter-group { max-width: 100%; }
         }
     </style>
 </head>
 <body>
 
-    <!-- الهيدر الرئيسي -->
     <header>
         <div class="container nav-wrapper">
             <div class="logo">
                 <i class="fa-solid fa-graduation-cap"></i>
                 <span>منصة الهندسة الموحدة</span>
             </div>
-            <div class="header-actions">
-                <button class="theme-toggle-btn" id="themeToggleBtn" title="تبديل الوضع">
-                    <i class="fa-solid fa-moon"></i>
-                </button>
-            </div>
+            <button class="theme-btn" id="themeBtn" title="تبديل المظهر">
+                <i class="fa-solid fa-moon"></i>
+            </button>
         </div>
     </header>
 
     <div class="container">
-        <!-- قسم العنوان والتصفية -->
-        <section class="hero-section">
-            <h1 class="hero-title">الموقع المركزي للمحاضرات والملفات</h1>
-            <p class="hero-subtitle">اختر قسمك الأكاديمي لعرض الجدول والملفات الخاصة بك بدقة</p>
-            
-            <div class="filter-container">
-                <div class="filter-group">
-                    <label for="deptSelect"><i class="fa-solid fa-layer-group"></i> القسم الأكاديمي:</label>
-                    <select id="deptSelect" onchange="renderAll()">
-                        <!-- يتم ملؤها ديناميكياً بواسطة JavaScript -->
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label for="subjectSelect"><i class="fa-solid fa-book"></i> المادة:</label>
-                    <select id="subjectSelect" onchange="renderAll()">
-                        <option value="all">جميع المواد</option>
-                        <!-- يتم ملؤها ديناميكياً -->
-                    </select>
-                </div>
-            </div>
+        <section class="hero">
+            <h1>جدول المحاضرات والمكتبة الرقمية</h1>
+            <p>اختر القسم أو المادة لعرض المواعيد، روابط المحاضرات، وملفات البوت مباشرة</p>
         </section>
 
-        <!-- تبويبات التنقل -->
+        <!-- التصفية -->
+        <div class="filter-card">
+            <div class="filter-item">
+                <label for="deptSelect"><i class="fa-solid fa-layer-group"></i> القسم الأكاديمي:</label>
+                <select id="deptSelect" onchange="onFilterChange()">
+                    <option value="all">جميع أقسام الهندسة (مشترك)</option>
+                    <option value="biomedical">الهندسة الطبية الحيوية (Biomedical)</option>
+                </select>
+            </div>
+            <div class="filter-item">
+                <label for="subjectSelect"><i class="fa-solid fa-book"></i> المادة الدراسية:</label>
+                <select id="subjectSelect" onchange="onFilterChange()">
+                    <option value="all">عرض جميع المواد</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- التبويبات -->
         <div class="tabs">
             <button class="tab-btn active" onclick="switchTab('scheduleTab', this)">
                 <i class="fa-solid fa-calendar-days"></i> الجدول الأسبوعي
             </button>
-            <button class="tab-btn" onclick="switchTab('filesTab', this)">
-                <i class="fa-solid fa-folder-open"></i> مكتبة الملفات
-            </button>
-            <button class="tab-btn" onclick="switchTab('eventsTab', this)">
-                <i class="fa-solid fa-clock"></i> الامتحانات والفعاليات
+
+            <button class="tab-btn" onclick="switchTab('subjectsTab', this)">
+                <i class="fa-solid fa-folder-open"></i> مواد الدفعة ورواط البوت
             </button>
         </div>
 
-        <!-- 1. محتوى الجدول الأسبوعي -->
+        <!-- 1. الجدول الأسبوعي -->
         <div id="scheduleTab" class="tab-content active">
             <div id="scheduleContainer"></div>
         </div>
 
-        <!-- 2. محتوى مكتبة الملفات -->
-        <div id="filesTab" class="tab-content">
-            <div id="filesContainer" class="grid-layout"></div>
-        </div>
-
-        <!-- 3. محتوى الفعاليات والامتحانات -->
-        <div id="eventsTab" class="tab-content">
-            <div id="eventsContainer" class="grid-layout"></div>
+        <!-- 2. بطاقات المواد مع روابط التلجرام -->
+        <div id="subjectsTab" class="tab-content">
+            <div id="subjectsContainer" class="grid"></div>
         </div>
     </div>
 
     <script>
         /* ==========================================================================
-           قاعدة البيانات المحلية (JSON Data Structure)
-           يمكنك إضافة/تعديل/حذف البيانات بسهولة من هنا مستقبلاً
+           قاعدة البيانات المحدثة بجدول الدفعة الحقيقي (بتوقيت السودان)
            ========================================================================== */
         const appData = {
-            // الأقسام الهندسيّة
-            departments: [
-                { id: 'all', name: 'جميع المواد المشتركة (عام)' },
-                { id: 'biomedical', name: 'الهندسة الطبية الحيوية (Biomedical)' },
-                { id: 'civil', name: 'الهندسة المدنية (Civil)' },
-                { id: 'electrical', name: 'الهندسة الكهربائية (Electrical)' }
-            ],
+            // رابط بوت التلجرام الخاص بكم (ضع رابط بوتك هنا بدلاً من الرابط الحالي)
+            botLink: "https://t.me/engineeringust24_bot", 
 
-            // قائمة المواد
             subjects: [
-                { id: 'calc2', name: 'الحسبان 2 (Calculus II)', isGeneral: true },
-                { id: 'physics', name: 'الفيزياء (Physics)', isGeneral: true },
-                { id: 'geom', name: 'الهندسة التحليلية (Analytical Geometry)', isGeneral: true },
-                { id: 'drawing', name: 'الرسم الهندسي (Engineering Drawing)', isGeneral: true },
-                { id: 'english', name: 'اللغة الإنجليزية (English)', isGeneral: true },
-                { id: 'prog', name: 'البرمجة C (Programming)', isGeneral: true },
+                { id: 'physics', name: 'الفيزياء (Physics)', doc: 'د. الزبير جعفر', isGeneral: true },
+                { id: 'english', name: 'اللغة الإنجليزية (English)', doc: 'دكتورة القوت', isGeneral: true },
+                { id: 'drawing', name: 'الرسم الهندسي (Engineering Drawing)', doc: 'د. مصطفى', isGeneral: true },
+                { id: 'prog', name: 'البرمجة (Programming C)', doc: 'دكتورة وسام', isGeneral: true },
+                { id: 'geom', name: 'الهندسة التحليلية (Analytical Geometry)', doc: 'دكتورة زينب', isGeneral: true },
+                { id: 'calc2', name: 'الحسبان 2 (Calculus II)', doc: 'د. هشام', isGeneral: true },
                 // مادة مخصصة للطبية الحيوية فقط
-                { id: 'biochem', name: 'الكيمياء الحيوية (Biochemistry)', isGeneral: false, deptId: 'biomedical' }
+                { id: 'biochem', name: 'الكيمياء الحيوية (Biochemistry)', doc: 'دكتورة حنان', isGeneral: false, deptId: 'biomedical' }
             ],
 
-            // الجدول الأسبوعي
             schedule: [
-                { day: 'الأحد', subjectId: 'calc2', time: '08:00 ص - 10:00 ص', room: 'القاعة الكبرى 1', deptId: 'all' },
-                { day: 'الأحد', subjectId: 'prog', time: '10:15 ص - 12:15 م', room: 'معمل الحاسوب 2', deptId: 'all' },
-                { day: 'الإثنين', subjectId: 'biochem', time: '08:00 ص - 10:00 ص', room: 'معمل الطبية الحيوية', deptId: 'biomedical' },
-                { day: 'الإثنين', subjectId: 'drawing', time: '10:15 ص - 01:15 م', room: 'مرسم الهندسة', deptId: 'all' },
-                { day: 'الثلاثاء', subjectId: 'physics', time: '09:00 ص - 11:00 ص', room: 'مدرج (أ)', deptId: 'all' },
-                { day: 'الأربعاء', subjectId: 'geom', time: '08:00 ص - 10:00 ص', room: 'قاعة 3', deptId: 'all' },
-                { day: 'الخميس', subjectId: 'english', time: '10:00 ص - 12:00 م', room: 'قاعة 2', deptId: 'all' }
-            ],
+                // السبت
+                { day: 'السبت', subjectId: 'physics', time: '03:00 م - 05:00 م', doc: 'د. الزبير جعفر', type: 'محاضرة' },
+                { day: 'السبت', subjectId: 'english', time: '05:00 م - 07:00 م', doc: 'دكتورة القوت', type: 'محاضرة' },
+                
+                // الأحد
+                { day: 'الأحد', subjectId: 'drawing', time: '09:00 ص - 11:00 ص', doc: 'د. مصطفى', type: 'محاضرة' },
+                { day: 'الأحد', subjectId: 'prog', time: '11:00 ص - 01:00 م', doc: 'دكتورة وسام', type: 'محاضرة' },
+                { day: 'الأحد', subjectId: 'geom', time: '07:00 م - 09:00 م', doc: 'تتوريال', type: 'تتوريال' },
 
-            // مكتبة الملفات (المحاضرات، الشيتات، الأكواد)
-            files: [
-                { title: 'محاضرة 1 - Introduction to Integration', subjectId: 'calc2', type: 'lecture', link: '#', date: '2026-09-10' },
-                { title: 'شيت 1 - Vector Mechanics Physics', subjectId: 'physics', type: 'sheet', link: '#', date: '2026-09-12' },
-                { title: 'أكواد لغة C - Basic Syntax & Loops', subjectId: 'prog', type: 'code', link: '#', date: '2026-09-14' },
-                { title: 'مذكرة مقدمة الكيمياء الحيوية (Introduction to Biochemistry)', subjectId: 'biochem', type: 'lecture', link: '#', date: '2026-09-15' },
-                { title: 'أساسيات الرسم الهندسي - إسقاط الأشكال', subjectId: 'drawing', type: 'sheet', link: '#', date: '2026-09-11' }
-            ],
-
-            // الفعاليات والامتحانات
-            events: [
-                { title: 'كويز الكيمياء الحيوية الأول (Biochemistry Quiz 1)', subjectId: 'biochem', date: '2026-09-25', time: '08:00 ص', type: 'exam' },
-                { title: 'تسليم التكليف الأول برمجيات C (Assignment 1)', subjectId: 'prog', date: '2026-09-28', time: '11:59 م', type: 'assignment' },
-                { title: 'امتحان منتصف الفصل - الفيزياء العامة', subjectId: 'physics', date: '2026-10-05', time: '09:00 ص', type: 'exam' }
+                // الأربعاء
+                { day: 'الأربعاء', subjectId: 'biochem', time: '08:00 ص - 10:00 ص', doc: 'دكتورة حنان', type: 'محاضرة (طبية حيوية)' },
+                { day: 'الأربعاء', subjectId: 'calc2', time: '10:00 ص - 12:00 م', doc: 'د. هشام', type: 'محاضرة' },
+                { day: 'الأربعاء', subjectId: 'geom', time: '01:00 م - 03:00 م', doc: 'دكتورة زينب', type: 'محاضرة' },
+                { day: 'الأربعاء', subjectId: 'prog', time: '03:00 م - 05:00 م', doc: 'دكتورة وسام', type: 'معمل (لاب)' },
+                { day: 'الأربعاء', subjectId: 'physics', time: '07:00 م - 09:00 م', doc: 'د. الزبير جعفر', type: 'تتوريال' }
             ]
         };
 
-        /* ==========================================================================
-           منطق وتفاعلات التطبيق (JavaScript Application Logic)
-           ========================================================================== */
-
-        // تهيئة التخصصات والمواد عند تحميل الصفحة
+        // التهيئة عند التحميل
         document.addEventListener('DOMContentLoaded', () => {
             initTheme();
-            populateDepartments();
-            populateSubjects();
+            populateSubjectsDropdown();
             renderAll();
         });
 
-        // 1. إدارة الوضع المظلم (Dark Mode)
-        const themeToggleBtn = document.getElementById('themeToggleBtn');
+        // 1. الوضع المظلم
+        const themeBtn = document.getElementById('themeBtn');
         function initTheme() {
-            const savedTheme = localStorage.getItem('theme') || 'light';
-            document.documentElement.setAttribute('data-theme', savedTheme);
-            updateThemeIcon(savedTheme);
+            const theme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', theme);
+            themeBtn.innerHTML = theme === 'dark' ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
         }
 
-        themeToggleBtn.addEventListener('click', () => {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            updateThemeIcon(newTheme);
+        themeBtn.addEventListener('click', () => {
+            const current = document.documentElement.getAttribute('data-theme');
+            const target = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', target);
+            localStorage.setItem('theme', target);
+            themeBtn.innerHTML = target === 'dark' ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
         });
 
-        function updateThemeIcon(theme) {
-            themeToggleBtn.innerHTML = theme === 'dark' 
-                ? '<i class="fa-solid fa-sun"></i>' 
-                : '<i class="fa-solid fa-moon"></i>';
-        }
-
-        // 2. تعبئة القوائم المنسدلة
-        function populateDepartments() {
-            const deptSelect = document.getElementById('deptSelect');
-            deptSelect.innerHTML = appData.departments.map(d => `<option value="${d.id}">${d.name}</option>`).join('');
-        }
-
-        function populateSubjects() {
-            const selectedDept = document.getElementById('deptSelect').value;
-            const subjectSelect = document.getElementById('subjectSelect');
+        // 2. تعبئة قائمة المواد
+        function populateSubjectsDropdown() {
+            const dept = document.getElementById('deptSelect').value;
+            const select = document.getElementById('subjectSelect');
             
-            // فلترة المواد بناءً على القسم المحدد
-            const availableSubjects = appData.subjects.filter(s => {
-                return s.isGeneral || selectedDept === 'all' || s.deptId === selectedDept;
-            });
-
-            subjectSelect.innerHTML = '<option value="all">جميع المواد</option>' + 
-                availableSubjects.map(s => `<option value="${s.id}">${s.name}</option>`).join('');
+            const filtered = appData.subjects.filter(s => s.isGeneral || dept === 'biomedical');
+            select.innerHTML = '<option value="all">عرض جميع المواد</option>' + 
+                filtered.map(s => `<option value="${s.id}">${s.name}</option>`).join('');
         }
 
-        // 3. التنقل بين التبويبات (Tabs)
-        function switchTab(tabId, element) {
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-            
-            element.classList.add('active');
-            document.getElementById(tabId).classList.add('active');
+        function onFilterChange() {
+            populateSubjectsDropdown();
+            renderAll();
         }
 
-        // 4. دالة التصفية والعرض الشامل
+        function switchTab(id, el) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            el.classList.add('active');
+            document.getElementById(id).classList.add('active');
+        }
+
+        // 3. عرض البيانات
         function renderAll() {
-            populateSubjects(); // تحديث المواد المتاحة عند تغيير القسم
-            const selectedDept = document.getElementById('deptSelect').value;
-            const selectedSubject = document.getElementById('subjectSelect').value;
+            const dept = document.getElementById('deptSelect').value;
+            const subject = document.getElementById('subjectSelect').value;
 
-            renderSchedule(selectedDept, selectedSubject);
-            renderFiles(selectedDept, selectedSubject);
-            renderEvents(selectedDept, selectedSubject);
+            renderSchedule(dept, subject);
+            renderSubjectsView(dept, subject);
         }
 
-        // مساعد: دالة فحص تصفية المادة أو القسم
-        function isItemVisible(itemDeptId, itemSubjectId, selectedDept, selectedSubject) {
-            const deptMatch = (selectedDept === 'all') 
-                ? (itemDeptId === 'all' || itemDeptId === undefined) 
-                : (itemDeptId === 'all' || itemDeptId === selectedDept || itemDeptId === undefined);
-                
-            const subjectMatch = (selectedSubject === 'all') || (itemSubjectId === selectedSubject);
-            return deptMatch && subjectMatch;
-        }
-
-        // 5. عرض الجدول الأسبوعي
-        function renderSchedule(selectedDept, selectedSubject) {
+        function renderSchedule(dept, selectedSubject) {
             const container = document.getElementById('scheduleContainer');
-            const days = ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس'];
+            const daysOrder = ['السبت', 'الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس'];
             let html = '';
 
-            days.forEach(day => {
-                const dayItems = appData.schedule.filter(item => {
-                    const subject = appData.subjects.find(s => s.id === item.subjectId);
-                    const itemDept = item.deptId || (subject ? subject.deptId : 'all');
+            daysOrder.forEach(day => {
+                const dayLectures = appData.schedule.filter(item => {
+                    const subjObj = appData.subjects.find(s => s.id === item.subjectId);
+                    const isBioOnly = subjObj && !subjObj.isGeneral;
                     
-                    return item.day === day && isItemVisible(itemDept, item.subjectId, selectedDept, selectedSubject);
+                    // فلترة القسم والمادة
+                    const passDept = (dept === 'biomedical') || !isBioOnly;
+                    const passSubj = (selectedSubject === 'all') || (item.subjectId === selectedSubject);
+
+                    return item.day === day && passDept && passSubj;
                 });
 
-                if (dayItems.length > 0) {
-                    html += `
-                        <div class="day-group">
-                            <h3 class="day-title"><i class="fa-regular fa-calendar"></i> ${day}</h3>
-                            <div class="grid-layout">
-                                ${dayItems.map(item => {
-                                    const subject = appData.subjects.find(s => s.id === item.subjectId);
-                                    const isBio = subject && subject.deptId === 'biomedical';
-                                    return `
-                                        <div class="card">
-                                            <div class="card-header">
-                                                <span class="card-title">${subject ? subject.name : item.subjectId}</span>
-                                                <span class="card-badge ${isBio ? 'biomedical' : ''}">${isBio ? 'طبية حيوية' : 'مشترك'}</span>
-                                            </div>
-                                            <div class="card-info">
-                                                <div><i class="fa-regular fa-clock"></i> ${item.time}</div>
-                                                <div><i class="fa-solid fa-location-dot"></i> ${item.room}</div>
-                                            </div>
-                                        </div>
-                                    `;
-                                }).join('')}
+                if (dayLectures.length > 0) {
+                    html += `<div class="day-header"><i class="fa-regular fa-clock"></i> يوم ${day}</div>`;
+                    html += `<div class="grid">`;
+                    dayLectures.forEach(lec => {
+                        const subjObj = appData.subjects.find(s => s.id === lec.subjectId);
+                        const isBio = subjObj && !subjObj.isGeneral;
+                        html += `
+                            <div class="card">
+                                <div>
+                                    <div class="card-header">
+                                        <span class="badge ${isBio ? 'bio' : ''}">${lec.type}</span>
+                                        <small style="color:var(--text-sub);"><i class="fa-solid fa-location-dot"></i> بتوقيت السودان</small>
+                                    </div>
+                                    <div class="subject-title">${subjObj ? subjObj.name : ''}</div>
+                                    <ul class="info-list">
+                                        <li><i class="fa-regular fa-user"></i> الأستاذ: ${lec.doc}</li>
+                                        <li><i class="fa-regular fa-clock"></i> الزمن: ${lec.time}</li>
+                                    </ul>
+                                </div>
+                                <div class="action-btns">
+                                    <a href="${appData.botLink}" target="_blank" class="btn btn-telegram">
+                                        <i class="fa-brands fa-telegram"></i> فتح ملفات المادة في البوت
+                                    </a>
+                                </div>
                             </div>
-                        </div>
-                    `;
+                        `;
+                    });
+                    html += `</div>`;
                 }
             });
 
-            container.innerHTML = html || '<div class="empty-state"><i class="fa-solid fa-folder-open"></i> لا توجد محاضرات مطابقة للتصفية المختارة.</div>';
+            if (!html) {
+                if (['الإثنين', 'الثلاثاء'].includes(daysOrder)) {
+                    html = `<div class="empty-box">لا توجد محاضرات في هذا اليوم (عطلة/أوف)</div>`;
+                } else {
+                    html = `<div class="empty-box"><i class="fa-solid fa-calendar-xmark"></i> لا توجد محاضرات مطابقة لخيارات البحث.</div>`;
+                }
+            }
+
+            container.innerHTML = html;
         }
 
-        // 6. عرض مكتبة الملفات
-        function renderFiles(selectedDept, selectedSubject) {
-            const container = document.getElementById('filesContainer');
-            const filteredFiles = appData.files.filter(file => {
-                const subject = appData.subjects.find(s => s.id === file.subjectId);
-                const itemDept = subject ? (subject.isGeneral ? 'all' : subject.deptId) : 'all';
-                return isItemVisible(itemDept, file.subjectId, selectedDept, selectedSubject);
+        function renderSubjectsView(dept, selectedSubject) {
+            const container = document.getElementById('subjectsContainer');
+            
+            const filteredSubjects = appData.subjects.filter(s => {
+                const passDept = s.isGeneral || (dept === 'biomedical');
+                const passSubj = (selectedSubject === 'all') || (s.id === selectedSubject);
+                return passDept && passSubj;
             });
 
-            if (filteredFiles.length === 0) {
-                container.innerHTML = '<div class="empty-state"><i class="fa-solid fa-file-excel"></i> لا توجد ملفات متوفرة لخيارات التصفية هذه.</div>';
+            if (filteredSubjects.length === 0) {
+                container.innerHTML = `<div class="empty-box">لا توجد مواد للعرض.</div>`;
                 return;
             }
 
-            container.innerHTML = filteredFiles.map(file => {
-                const subject = appData.subjects.find(s => s.id === file.subjectId);
-                let typeIcon = 'fa-file-pdf';
-                let typeText = 'محاضرة';
-                
-                if (file.type === 'sheet') { typeIcon = 'fa-file-pen'; typeText = 'شيت / تمارين'; }
-                if (file.type === 'code') { typeIcon = 'fa-code'; typeText = 'كود بردمجي'; }
+            container.innerHTML = filteredSubjects.map(s => {
+                // البحث عن مواعيد هذه المادة في الجدول
+                const times = appData.schedule.filter(sch => sch.subjectId === s.id);
+                const timesText = times.map(t => `${t.day} (${t.time})`).join(' | ');
 
                 return `
                     <div class="card">
                         <div>
                             <div class="card-header">
-                                <span class="card-badge">${typeText}</span>
-                                <small style="color: var(--text-sub);">${file.date}</small>
+                                <span class="badge ${!s.isGeneral ? 'bio' : ''}">${s.isGeneral ? 'مادة مشتركة' : 'طبية حيوية'}</span>
                             </div>
-                            <h4 class="card-title">${file.title}</h4>
-                            <div class="card-info">
-                                <div><i class="fa-solid fa-book-open"></i> ${subject ? subject.name : ''}</div>
-                            </div>
+                            <div class="subject-title">${s.name}</div>
+                            <ul class="info-list">
+                                <li><i class="fa-solid fa-user-tie"></i> المحاضر: ${s.doc}</li>
+                                <li><i class="fa-regular fa-calendar"></i> المواعيد: ${timesText || 'غير محدد'}</li>
+                            </ul>
                         </div>
-                        <a href="${file.link}" target="_blank" class="btn-download">
-                            <i class="fa-solid fa-download"></i> فتح / تحميل الملف
-                        </a>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        // 7. عرض الامتحانات والفعاليات
-        function renderEvents(selectedDept, selectedSubject) {
-            const container = document.getElementById('eventsContainer');
-            const filteredEvents = appData.events.filter(event => {
-                const subject = appData.subjects.find(s => s.id === event.subjectId);
-                const itemDept = subject ? (subject.isGeneral ? 'all' : subject.deptId) : 'all';
-                return isItemVisible(itemDept, event.subjectId, selectedDept, selectedSubject);
-            });
-
-            if (filteredEvents.length === 0) {
-                container.innerHTML = '<div class="empty-state"><i class="fa-solid fa-bell-slash"></i> لا توجد امتحانات أو فعاليات قادمة.</div>';
-                return;
-            }
-
-            container.innerHTML = filteredEvents.map(event => {
-                const subject = appData.subjects.find(s => s.id === event.subjectId);
-                const isExam = event.type === 'exam';
-
-                return `
-                    <div class="card" style="border-right: 4px solid ${isExam ? '#ff4d4f' : 'var(--primary)'};">
-                        <div>
-                            <div class="card-header">
-                                <span class="card-badge" style="color: ${isExam ? '#ff4d4f' : 'var(--primary)'}">
-                                    ${isExam ? 'امتحان / كويز' : 'تسليم تكليف'}
-                                </span>
-                            </div>
-                            <h4 class="card-title">${event.title}</h4>
-                            <div class="card-info">
-                                <div><i class="fa-solid fa-book"></i> ${subject ? subject.name : ''}</div>
-                                <div><i class="fa-regular fa-calendar-check"></i> التاريخ: ${event.date}</div>
-                                <div><i class="fa-regular fa-clock"></i> الوقت: ${event.time}</div>
-                            </div>
+                        <div class="action-btns">
+                            <a href="${appData.botLink}" target="_blank" class="btn btn-telegram">
+                                <i class="fa-brands fa-telegram"></i> مكتبة الشيتات والملفات (البوت)
+                            </a>
                         </div>
                     </div>
                 `;
