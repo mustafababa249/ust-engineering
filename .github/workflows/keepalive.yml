@@ -1,0 +1,13 @@
+name: Keep Supabase alive
+on:
+  schedule:
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping database
+        run: |
+          curl -fsS "https://pgmqxwfwskdmutgqnfgr.supabase.co/rest/v1/subjects?select=id&limit=1" \
+            -H "apikey: sb_publishable_pFny7MIygUqxdYwa4XEXaQ_30J_35mb"
